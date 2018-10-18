@@ -1,0 +1,27 @@
+<% if @user.errors.any? %>
+  <div id="error_explanation" class="alert alert-danger">
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for(@user) do |f| %>
+    <div class="container-fluid">
+    	<div class="col-xs-12"><h4>名前</h4></div>
+        <div class="col-xs-12">
+        	<%= f.text_field :name, placeholder:"名前", class: "form-control name"%>
+        </div>
+        <div class="col-xs-12"><h4>自己紹介</h4></div>
+        <div class="col-xs-12"><%= f.text_field :introduction, placeholder:"自己紹介", class: "form-control introduction"%>
+    	</div>
+    	<div class="col-xs-12"><h4>画像</h4></div>
+    	<div class="col-xs-12">
+			<%= f.attachment_field :profile_image, placeholder: "プロフィール画像", class: "user_image"%>
+		</div>
+        <div class="col-xs-12 padding-top-10"><%= f.submit "変更を保存" %></div>
+	</div>
+    
+<% end %>

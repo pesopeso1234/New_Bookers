@@ -13,3 +13,23 @@
  *= require_tree .
  *= require_self
  */
+ @import "bootstrap-sprockets";  /*ここを追加*/
+ @import "bootstrap";            /*ここを追加*/
+  
+
+.sampleRow > div {
+	border-bottom: 1px solid gray;  
+}
+
+.padding-left-5{
+	padding-left: 5%;
+}
+
+.padding-top-10{
+	padding-top: 10px;
+}
+
+title-form-size{
+	width: 150px;
+	height: 60px !important;
+}

@@ -1,0 +1,24 @@
+<% if @edit_book.errors.any? %>
+  <div id="error_explanation" class="alert alert-danger">
+    <ul>
+      <% @edit_book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for(@edit_book) do |f| %>
+  <div class="container-fluid">
+    	<div class="col-xs-12"><h4>タイトル</h4></div>
+    	<div class="col-xs-12">
+        	<%= f.text_field :title, placeholder:"タイトル", class: "form-control"%>
+        </div>
+        <div class="col-xs-12"><h4>感想</h4></div>
+        <div class="col-xs-12">
+        	<%= f.text_field :opinion, placeholder:"感想", class: "form-control" %>
+        </div>
+    <div class="col-xs-12 padding-top-10"><%= f.submit "変更を保存"%></div>
+     <p><%= link_to 'show', book_path(@edit_book.id), class: "book_#{@edit_book.id}"  %> | <%= link_to 'back', books_path, class: "back" %></p>
+  </div>
+<% end %>
