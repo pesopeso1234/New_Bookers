@@ -15,6 +15,124 @@
 <div class="container-fluid">
 	<div class="row col-xs-12">
 		<div class="col-xs-4">
+			<h2>User info</h2>
+			<table class="table margin-bottom-0">
+				<tbody>
+					<tr>
+						<th>
+							<% if @user.profile_image.present? %>
+								<%= attachment_image_tag @user, :profile_image, :fill, 60, 60%>
+							<% else %>
+								<%= image_tag 'no-image.png', :size => '60x60' %>
+							<% end %>
+						</th>
+					</tr>
+					<tr>
+						<th>name:</th>
+						<td><%= @user.name%></td>
+					</tr>
+					<tr>
+						<th>introduction:</th>
+							<td><%= @user.introduction%></td>
+					</tr>
+				</tbody>
+			</table>
+			<% if @user.id == current_user.id %>
+				<button class="btn btn-default btn-block "><%= link_to "プロフィール編集", edit_user_path(current_user.id), class: "edit_user_#{current_user.id}" %></button>
+			<% else %>
+				<button class="btn btn-default btn-block ">
+					<%= link_to "マイページへ", user_path(current_user.id), class: "user_#{current_user.id}" %>
+				</button>
+			<% end %>
+
+			<%= form_for(@book_add) do |f| %>
+				<h2>New book</h2>
+				<table class="table  margin-bottom-0 margin-top-20">
+					<tbody>
+						<tr>
+							<th>
+								<%= f.text_field :title, placeholder:"タイトル", class: "form-control book_title"%>
+							</th>
+						</tr>
+						<tr>
+							<th>
+								<%= f.text_field :opinion, placeholder:"感想", class: "form-control book_body"%>
+							</th>
+						</tr>
+					</tbody>
+				</table>
+					<%= f.submit "Create book"%>
+			<% end %>
+		</div>
+
+		<div class="col-xs-8">
+			<h2>Book detail</h2>
+			<table class="table">
+			<% if @select_book.present? %>
+				<thead>
+					<tr>
+						<th>Image</th>
+						<th>Title</th>
+						<th>Detail</th>
+					</tr>
+				</thead>
+					<% if @select_book.user_id == current_user.id %>
+						<tbody>
+							<tr>
+								<th>
+									<% submit_user = User.find_by(id: @select_book.user_id) %>
+									<% if submit_user.profile_image.present? %>
+										<%= attachment_image_tag submit_user, :profile_image, :fill, 60, 60 %>
+									<% else %>
+										<%= image_tag 'no-image.png', :size => '60x60' %>
+									<% end %>
+									<%= submit_user.name %>
+								</th>
+								<td>
+									<%= @select_book.title %>
+								</td>
+								<td>
+									<%= @select_book.opinion %>
+								</td>
+								<td>
+									<%=link_to "Edit", edit_book_path(@select_book.id), class: "edit_book_#{@select_book.id}" %>
+								</td>
+								<td>
+									<%= link_to "Delete", "#{@select_book.id}", class: "destroy_book_#{@select_book.id}", method: :delete, "data-confirm" => "Are you sure?" %>
+								</td>
+							</tr>
+						</tbody>
+					<% else %>
+						<tbody>
+							<tr>
+								<th>
+									<% submit_user = User.find_by(id: @select_book.user_id) %>
+									<% if submit_user.profile_image.present? %>
+										<%= attachment_image_tag submit_user, :profile_image, :fill, 60, 60 %>
+									<% else %>
+										<%= image_tag 'no-image.png', :size => '60x60' %>
+									<% end %>
+									<%= submit_user.name %>
+								</th>
+								<td>
+									<%= @select_book.title %>
+								</td>
+								<td>
+									<%= @select_book.opinion %>
+								</td>
+							</tr>
+						</tbody>
+					<% end %>
+				<% end %>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+<!-- <div class="container-fluid">
+	<div class="row col-xs-12">
+		<div class="col-xs-4">
 			<div class="row sampleRow">
 				<div class="col-xs-12">
 					<h2>User info</h2>
@@ -92,10 +210,10 @@
 								<%= @select_book.opinion %>
 							</div>
 							<div class="col-xs-2">
-								<%=link_to "Edit", edit_book_path(@select_book.id), class: "edit_#{@select_book.id}" %>
+								<%=link_to "Edit", edit_book_path(@select_book.id), class: "edit_book_#{@select_book.id}" %>
 							</div>
 							<div class="col-xs-2">
-								<%= link_to "Delete", "#{@select_book.id}", class: "destroy_#{@select_book.id}", method: :delete, "data-confirm" => "Are you sure?" %>
+								<%= link_to "Delete", "#{@select_book.id}", class: "destroy_book_#{@select_book.id}", method: :delete, "data-confirm" => "Are you sure?" %>
 							</div>
 						</div>
 				 	<% else %>
@@ -121,4 +239,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->

@@ -31,7 +31,7 @@
         <div class="collapse navbar-collapse" id="navbarEexample7">
           <ul class="nav navbar-nav navbar-right">
             <% if user_signed_in? %>
-              <li><%= link_to "ホーム", user_path(current_user.id) %><li>
+              <li><%= link_to "ホーム", user_path(current_user.id), class: "home" %><li>
               <li><%= link_to 'user一覧', users_path, class: "users"  %></li>
               <li ><%= link_to 'book一覧', books_path, class: "books"  %></li>
               <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "logout"  %><li>
